@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SampleApp"
+             x:Class="SampleApp.MainPage"
+             x:DataType="local:MainViewModel">
+
+    <ContentPage.Resources>
+
+        <Style TargetType="Label" x:Key="LabelStyle">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"/>
+            <Setter Property="FontFamily" Value="OpenSansRegular"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="PointerOverSelectedItemStyle"
+               BasedOn="{StaticResource LabelStyle}">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="DarkTurquoise" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="DarkTurquoise" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="SelectedItemStyle"
+               BasedOn="{StaticResource LabelStyle}">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="DarkTurquoise" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="PointerOverItemStyle"
+               BasedOn="{StaticResource LabelStyle}"
+               >
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="DarkTurquoise" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="PointerOverSelectedItemTemplate" x:DataType="x:String">
+            <Label Text="{Binding}"
+                   Style="{StaticResource PointerOverSelectedItemStyle}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="PointerOverItemTemplate" x:DataType="x:String">
+            <Label Text="{Binding}"
+                   Style="{StaticResource PointerOverItemStyle}" />
+        </DataTemplate>
+
+
+        <DataTemplate x:Key="SelectedItemTemplate"  x:DataType="x:String">
+            <Label Text="{Binding}"
+                   Style="{StaticResource SelectedItemStyle}" />
+        </DataTemplate>
+
+
+    </ContentPage.Resources>
+    
+    
+    <Grid RowDefinitions="Auto, Auto,*"
+          ColumnDefinitions="Auto, Auto, Auto"
+          ColumnSpacing="10">
+ 
+        <Label Text="PointerOver + Selected"
+               Style="{StaticResource LabelStyle}"
+               Grid.Row="0"
+               Grid.Column="0"/>
+        <CollectionView ItemsSource="{Binding Items}"
+                        ItemTemplate="{StaticResource PointerOverSelectedItemTemplate}"
+                        SelectionMode="Single"
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"/>
+
+        <Label Text="PointerOver"
+               Style="{StaticResource LabelStyle}"
+               Grid.Row="0"
+               Grid.Column="1"/>
+        <CollectionView ItemsSource="{Binding Items}"
+                        ItemTemplate="{StaticResource PointerOverItemTemplate}"
+                        SelectionMode="Single"
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="1"/>
+
+        <Label Text="Selected"
+               Style="{StaticResource LabelStyle}"
+               Grid.Row="0"
+               Grid.Column="2"/>
+        <CollectionView ItemsSource="{Binding Items}"
+                        ItemTemplate="{StaticResource SelectedItemTemplate}"
+                        SelectionMode="Single"
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="2"/>
+
+    </Grid>
+
+</ContentPage>
